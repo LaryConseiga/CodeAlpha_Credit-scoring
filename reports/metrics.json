@@ -1,0 +1,43 @@
+{
+  "selected_model": "Gradient Boosting",
+  "threshold": 0.21884411803917492,
+  "classification_report_test": {
+    "No default": {
+      "precision": 0.963706451378282,
+      "recall": 0.9465976067154849,
+      "f1-score": 0.9550754149171967,
+      "support": 27995.0
+    },
+    "Default": {
+      "precision": 0.40247801758593127,
+      "recall": 0.5022443890274314,
+      "f1-score": 0.4468604393166186,
+      "support": 2005.0
+    },
+    "accuracy": 0.9169,
+    "macro avg": {
+      "precision": 0.6830922344821067,
+      "recall": 0.7244209978714582,
+      "f1-score": 0.7009679271169077,
+      "support": 30000.0
+    },
+    "weighted avg": {
+      "precision": 0.9261976843864932,
+      "recall": 0.9169,
+      "f1-score": 0.9211097140478913,
+      "support": 30000.0
+    }
+  },
+  "permutation_importance": {
+    "rev_util": 0.0677,
+    "late_90": 0.0327,
+    "late_30_59": 0.0319,
+    "late_60_89": 0.017,
+    "debt_ratio": 0.0126,
+    "monthly_inc": 0.0109,
+    "age": 0.0093,
+    "open_credit": 0.0061,
+    "real_estate": 0.0019,
+    "dependents": 0.001
+  }
+}

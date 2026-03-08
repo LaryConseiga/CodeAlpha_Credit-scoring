@@ -1,0 +1,11 @@
+model,training_data,n_train,roc_auc,pr_auc,fit_seconds
+Logistic Regression,benchmark,13409,0.8541,0.3721,0.2
+Decision Tree,benchmark,13409,0.8457,0.3439,0.1
+Random Forest,benchmark,13409,0.8624,0.3872,0.8
+Gradient Boosting,benchmark,13409,0.8664,0.4002,0.5
+Neural Network,benchmark,13409,0.8361,0.3488,8.4
+Logistic Regression,full,120000,0.8599,0.379,1.2
+Decision Tree,full,120000,0.8543,0.3653,0.7
+Random Forest,full,120000,0.8663,0.3983,11.2
+Gradient Boosting,full,120000,0.8688,0.4078,1.4
+Neural Network,full,120000,0.8673,0.3976,14.2

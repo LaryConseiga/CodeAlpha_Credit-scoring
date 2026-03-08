@@ -1,0 +1,43 @@
+{
+  "model": "Gradient Boosting",
+  "threshold": 0.21884411803917492,
+  "nn_threshold": 0.23293280601501465,
+  "nn_test_roc_auc": 0.8673214890974029,
+  "raw_features": [
+    "rev_util",
+    "age",
+    "late_30_59",
+    "debt_ratio",
+    "monthly_inc",
+    "open_credit",
+    "late_90",
+    "real_estate",
+    "late_60_89",
+    "dependents"
+  ],
+  "engineered_features": [
+    "rev_util",
+    "age",
+    "late_30_59",
+    "debt_ratio",
+    "monthly_inc",
+    "open_credit",
+    "late_90",
+    "real_estate",
+    "late_60_89",
+    "dependents",
+    "total_late_payments",
+    "late_severity_score",
+    "income_per_dependent",
+    "monthly_debt",
+    "income_missing"
+  ],
+  "train_rows": 120000,
+  "test_rows": 30000,
+  "test_default_rate": 0.06683333333333333,
+  "test_roc_auc": 0.8688275293192274,
+  "test_pr_auc": 0.40784078636279064,
+  "benchmark_test_rows": 3303,
+  "benchmark_test_roc_auc": 0.8638774149882344,
+  "sklearn_version": "1.9.1"
+}
