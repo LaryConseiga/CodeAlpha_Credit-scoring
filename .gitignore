@@ -1,0 +1,16 @@
+# Environments
+.venv/
+venv/
+.condaenv/
+__pycache__/
+*.pyc
+
+# Data downloaded from Kaggle (fetched automatically by src/data.py)
+data/raw/
+
+# Notebooks / tooling
+.ipynb_checkpoints/
+.streamlit/secrets.toml
+.DS_Store
+.vscode/
+.idea/
