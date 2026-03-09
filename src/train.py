@@ -36,7 +36,7 @@ from sklearn.model_selection import StratifiedKFold, cross_val_predict, train_te
 
 from src.data import RAW_FEATURES, ROOT, TARGET, benchmark_ids, load_benchmark, load_gmsc
 from src.features import FEATURE_NAMES
-from src.models import SEED, fit_nn, make_models, predict_nn
+from src.models import SEED, NumpyMLP, fit_nn, make_models, predict_nn
 
 MODELS_DIR = ROOT / "models"
 REPORTS_DIR = ROOT / "reports"
@@ -179,6 +179,7 @@ def export_nn(pre, nn):
     nn_dir.mkdir(parents=True, exist_ok=True)
     joblib.dump(pre, nn_dir / "preprocessor.joblib")
     nn.save(nn_dir / "credit_nn.keras")
+    NumpyMLP.from_keras(nn).save(nn_dir / "credit_nn_weights.npz")  # TensorFlow-free inference
     tflite = tf.lite.TFLiteConverter.from_keras_model(nn).convert()
     (nn_dir / "credit_nn.tflite").write_bytes(tflite)
 

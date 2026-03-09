@@ -1,0 +1,6 @@
+# Training, notebook and TFLite export (Python 3.10 to 3.12, TensorFlow requirement)
+-r requirements.txt
+tensorflow-cpu>=2.19
+matplotlib>=3.9
+seaborn>=0.13
+jupyter>=1.1

@@ -1,5 +1,6 @@
 """Model definitions: scikit-learn pipelines and the Keras neural network."""
 
+import numpy as np
 from sklearn.ensemble import HistGradientBoostingClassifier, RandomForestClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
@@ -98,4 +99,36 @@ def fit_nn(X, y, epochs: int = 60, verbose: int = 0):
 
 
 def predict_nn(pre, model, X):
+    """Works with a Keras model or its NumpyMLP export."""
     return model.predict(pre.transform(X).astype("float32"), verbose=0).ravel()
+
+
+class NumpyMLP:
+    """Inference-only copy of the Keras MLP (ReLU hidden layers, sigmoid output) in pure numpy.
+
+    Lets the demo app and the CLI use the neural network without installing TensorFlow.
+    Dropout is inactive at inference, so only the Dense weights are needed.
+    """
+
+    def __init__(self, weights):
+        self.weights = weights  # [W1, b1, W2, b2, ...]
+
+    @classmethod
+    def from_keras(cls, model):
+        return cls([np.asarray(w, dtype="float32") for w in model.get_weights()])
+
+    @classmethod
+    def load(cls, path):
+        with np.load(path) as data:
+            return cls([data[f"arr_{i}"] for i in range(len(data.files))])
+
+    def save(self, path):
+        np.savez(path, *self.weights)
+
+    def predict(self, X, verbose=0):
+        h = np.asarray(X, dtype="float32")
+        layers = list(zip(self.weights[::2], self.weights[1::2]))
+        for W, b in layers[:-1]:
+            h = np.maximum(h @ W + b, 0.0)
+        W, b = layers[-1]
+        return 1.0 / (1.0 + np.exp(-(h @ W + b)))

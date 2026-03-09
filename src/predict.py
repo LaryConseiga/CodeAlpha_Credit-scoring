@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 from src.data import GMSC_COLUMNS, RAW_FEATURES, ROOT
-from src.models import predict_nn
+from src.models import NumpyMLP, predict_nn
 
 MODELS_DIR = ROOT / "models"
 NN_DIR = MODELS_DIR / "neural_network"
@@ -31,10 +31,9 @@ def load_metadata() -> dict:
 @lru_cache
 def load_model(kind: str = "best"):
     if kind == "nn":
-        import keras
-
+        # numpy export of the Keras network: no TensorFlow needed at prediction time
         pre = joblib.load(NN_DIR / "preprocessor.joblib")
-        return pre, keras.models.load_model(NN_DIR / "credit_nn.keras", compile=False)
+        return pre, NumpyMLP.load(NN_DIR / "credit_nn_weights.npz")
     return joblib.load(MODELS_DIR / "credit_model.joblib")
 
 

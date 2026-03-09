@@ -1,16 +1,18 @@
 # Credit Scoring: Predicting Loan Default Risk
 
-![Python](https://img.shields.io/badge/Python-3.12-blue)
+[![Live demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://codealphacredit-scoring-447gitcd76xs2492bg5yyd.streamlit.app/)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.9-orange)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-Keras%20%7C%20TFLite-ff6f00)
-![Streamlit](https://img.shields.io/badge/demo-Streamlit-ff4b4b)
 
 A machine learning project that estimates the probability that a borrower will experience a **serious
 delinquency (90+ days past due) within the next two years**, based on their credit history and financial profile.
 
 Built as part of the **CodeAlpha Machine Learning internship** (Task 1: Credit Scoring Model).
 
-![Streamlit demo](reports/figures/streamlit_demo.png)
+**👉 [Try the live demo](https://codealphacredit-scoring-447gitcd76xs2492bg5yyd.streamlit.app/)**
+
+[![Streamlit demo](reports/figures/streamlit_demo.png)](https://codealphacredit-scoring-447gitcd76xs2492bg5yyd.streamlit.app/)
 
 ## Highlights
 
@@ -102,7 +104,8 @@ observed default rate several times.
 5. **Models**: scikit-learn pipelines (Logistic Regression, Decision Tree, Random Forest,
    `HistGradientBoostingClassifier`) and a Keras MLP (64-32-1, dropout, early stopping on validation AUC).
 6. **Deployment artefacts**: the full scikit-learn pipeline (`.joblib`), plus the neural network as `.keras` and
-   `.tflite` (predictions identical to Keras within 1e-7).
+   `.tflite`, plus a pure-numpy copy of its weights so the demo runs without TensorFlow
+   (all three give the same predictions within 1e-6).
 
 The complete analysis, with plots and commentary, is in [`notebooks/credit_scoring.ipynb`](notebooks/credit_scoring.ipynb).
 
@@ -118,7 +121,7 @@ CodeAlpha_Credit-scoring/
 ├── models/
 │   ├── credit_model.joblib       # selected pipeline (cleaning + features + gradient boosting)
 │   ├── metadata.json             # threshold, features, test scores
-│   └── neural_network/           # preprocessor.joblib, credit_nn.keras, credit_nn.tflite
+│   └── neural_network/           # preprocessor, .keras, .tflite and numpy weights (.npz)
 ├── notebooks/
 │   └── credit_scoring.ipynb      # full analysis
 ├── reports/
@@ -131,7 +134,8 @@ CodeAlpha_Credit-scoring/
 │   ├── models.py                 # model definitions
 │   ├── train.py                  # training, comparison, figures, export
 │   └── predict.py                # command-line scoring
-└── requirements.txt
+├── requirements.txt              # runtime: demo + scoring
+└── requirements-dev.txt          # training + notebook (TensorFlow)
 ```
 
 ## Getting started
@@ -142,7 +146,7 @@ cd CodeAlpha_Credit-scoring
 
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt  # Python 3.10 to 3.12 (TensorFlow requirement)
+pip install -r requirements.txt  # demo and scoring only, Python 3.10+
 ```
 
 **Try the demo** (the trained models are included, no training needed):
@@ -160,10 +164,11 @@ python -m src.predict data/credit_risk_benchmark.csv --model nn   # use the neur
 
 The output adds `default_probability`, `predicted_default` and `risk_band` (Low / Medium / High).
 
-**Retrain everything** (downloads the Kaggle data, trains the 5 models on both training sets, regenerates the
-figures and models, about 1 minute on a laptop CPU):
+**Retrain everything**: downloads the Kaggle data, trains the 5 models on both training sets and regenerates the
+figures and models (about 1 minute on a laptop CPU). Training needs TensorFlow, hence Python 3.10 to 3.12:
 
 ```bash
+pip install -r requirements-dev.txt
 python -m src.train
 ```
 
