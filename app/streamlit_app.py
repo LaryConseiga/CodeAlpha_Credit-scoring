@@ -76,10 +76,6 @@ with single:
             box(f"Probability is above the {threshold:.0%} threshold: this applicant is flagged as high risk.")
         else:
             box(f"Probability is below the {threshold:.0%} threshold: this applicant is not flagged.")
-        st.caption(
-            f"For reference, the average default rate in the data is {meta['test_default_rate']:.1%}. "
-            "This is a portfolio project, not a real lending decision tool."
-        )
 
 with batch:
     st.write(
